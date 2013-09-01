@@ -1,0 +1,38 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>Wallsizer64.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>qml/Wallsizer/DropTargetArea.qml</file>
+        <file>qml/Wallsizer/ImageFrame.qml</file>
+        <file>qml/Wallsizer/IndicatorOverlay.qml</file>
+        <file>qml/Wallsizer/main.qml</file>
+        <file>qml/Wallsizer/MessageOverlay.qml</file>
+        <file>qml/Wallsizer/ToolBar.qml</file>
+        <file>qml/Wallsizer/GUI/ConfigWindow.qml</file>
+        <file>qml/Wallsizer/GUI/EditWindow.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUIAlert.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUIButtonStyle.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUICheckBoxStyle.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUIComboBoxStyle.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUIcon.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUIHeading.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUILabel.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUISliderStyle.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUISpacer.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUITableViewStyleHeader.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUITableViewStyleItem.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUITableViewStyleRow.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/MyUITextFieldStyle.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/Variables.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/Base/BaseElement.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/Base/BaseText.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/Fonts/Fonts.qml</file>
+        <file>qml/Wallsizer/GUI/Theme/Fonts/glyphicons-regular.ttf</file>
+        <file>qml/Wallsizer/GUI/Theme/Fonts/SourceSansPro_Light.ttf</file>
+        <file>qml/Wallsizer/GUI/Theme/Fonts/SourceSansPro_Regular.ttf</file>
+        <file>qml/Wallsizer/images/ajax-loader.gif</file>
+        <file>qml/Wallsizer/images/diagonal-noise.png</file>
+        <file>qml/Wallsizer/images/WallpaperResizerHelpBanner.png</file>
+    </qresource>
+</RCC>
