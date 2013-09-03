@@ -117,7 +117,7 @@ Window {
             backgroundVisible: false
             frameVisible: false
             activeFocusOnTab: true
-            model: app.resolutionsModel //dummyModel
+            model: resolutionModel
             headerDelegate: MyUITableViewStyleHeader {
                 //                columns: parent.columnCount
             }

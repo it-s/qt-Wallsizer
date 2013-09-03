@@ -7,13 +7,15 @@ SOURCES += main.cpp \
     droparea.cpp \
     wallsizer.cpp \
     im.cpp \
-    mythread.cpp
+    mythread.cpp \
+    resolutionmodel.cpp
 
 HEADERS += \
     droparea.h \
     wallsizer.h \
     im.h \
-    mythread.h
+    mythread.h \
+    resolutionmodel.h
 
 unix:!macx: LIBS += -lMagick++
 
