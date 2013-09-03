@@ -14,6 +14,7 @@ Window {
     title: qsTr("Edit Resolution")
     modality: Qt.ApplicationModal
 
+    property variant resolution
     property int itemRow: 0
     property alias itemTitle: editItemTitle.text
     property alias itemWidth: editItemWidth.text
@@ -23,6 +24,8 @@ Window {
     property alias itemMediumFilter: editItemMedFilter.currentIndex
     property alias itemHighFilter: editItemHigFilter.currentIndex
     property alias itemEnabled: editItemEnabled.checked
+
+    signal saveClicked()
 
     ColumnLayout{
         id: mainLayout
@@ -203,20 +206,20 @@ Window {
 
                 }
 
-                onClicked: {
-                    app.resolutionsModelSet(itemRow,{
-                                                  title: editItemTitle.text,
-                                                  width: editItemWidth.text*1,
-                                                  height: editItemHeight.text*1,
-                                                  compression: editItemCompressionLevel.value*1,
-                                                  detailLow: editItemLowFilter.currentIndex,
-                                                  detailMedium: editItemMedFilter.currentIndex,
-                                                  detailHigh: editItemHigFilter.currentIndex,
-                                                  enabled: editItemEnabled.checked
-                                              });
-                    editWindow.close();
-                    configWindow.focusListAt(itemRow);
-                }
+                onClicked:editWindow.saveClicked()
+//                    app.resolutionsModelSet(itemRow,{
+//                                                  title: editItemTitle.text,
+//                                                  width: editItemWidth.text*1,
+//                                                  height: editItemHeight.text*1,
+//                                                  compression: editItemCompressionLevel.value*1,
+//                                                  detailLow: editItemLowFilter.currentIndex,
+//                                                  detailMedium: editItemMedFilter.currentIndex,
+//                                                  detailHigh: editItemHigFilter.currentIndex,
+//                                                  enabled: editItemEnabled.checked
+//                                              });
+//                    editWindow.close();
+//                    configWindow.focusListAt(itemRow);
+//                }
                 isDefault: true
             }
         }

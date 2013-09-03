@@ -15,6 +15,11 @@ ResolutionModel::ResolutionModel(QObject *parent) :
     temp.height=480;
 
     mDatas.append(temp);
+    mDatas.append(temp);
+    mDatas.append(temp);
+    mDatas.append(temp);
+    mDatas.append(temp);
+
 }
 
 int ResolutionModel::rowCount(const QModelIndex &parent) const
@@ -51,7 +56,7 @@ QVariant ResolutionModel::data(const QModelIndex &index, int role) const
         return mDatas.at(index.row()).enabled;
 
 
-        return QVariant();
+    return QVariant();
 
 }
 
@@ -71,5 +76,23 @@ QHash<int, QByteArray> ResolutionModel::roleNames() const
 
     return names;
 
+
+}
+
+QVariant ResolutionModel::resolution(int id)
+{
+    QMap<QString, QVariant> resolution;
+
+    if (index(id).isValid()) {
+        resolution["title"] = data(index(id), TitleRole).toString();
+        resolution["width"] = data(index(id), WidthRole).toInt();
+        resolution["height"] = data(index(id), HeightRole).toInt();
+        resolution["low"] = data(index(id), DetailLowRole).toInt();
+        resolution["med"] = data(index(id), DetailMedRole).toInt();
+        resolution["high"] = data(index(id), DetailHighRole).toInt();
+        resolution["enabled"] = data(index(id), EnabledRole).toBool();
+    }
+
+    return QVariant(resolution);
 
 }

@@ -35,6 +35,7 @@ public:
     int rowCount(const QModelIndex &parent) const;
     QVariant data(const QModelIndex &index, int role) const;
     QHash<int, QByteArray> roleNames() const;
+    Q_INVOKABLE QVariant resolution(int id);
 
 private:
     QList<Resolution> mDatas;

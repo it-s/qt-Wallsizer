@@ -184,7 +184,11 @@ Window {
                 iconName: "circle_plus"
                 activeFocusOnTab: true
                 //                    tooltip: qsTr("Add new resolution")
-                onClicked: app.resolutionsModelAdd()
+                onClicked: {
+                    var row = resolutionTable.currentRow;
+                    editWindow.resolution = resolutionModel.resolution(row);
+                    editWindow.show();
+                }
             }
             Button {
                 style: MyUIButtonStyle {
@@ -193,8 +197,8 @@ Window {
                 activeFocusOnTab: true
                 //                    tooltip: qsTr("Remove selected resolution")
                 enabled: (resolutionTable.currentRow != -1)
-                onClicked: app.resolutionsModelDelete(
-                               resolutionTable.currentRow)
+//                onClicked: app.resolutionsModelDelete(
+//                               resolutionTable.currentRow)
             }
             MyUISpacer{}
             Button {
@@ -239,5 +243,6 @@ Window {
     }
     EditWindow {
         id: editWindow
+
     }
 }
