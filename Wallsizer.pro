@@ -6,12 +6,14 @@ QT += widgets quick
 SOURCES += main.cpp \
     droparea.cpp \
     wallsizer.cpp \
-    im.cpp
+    im.cpp \
+    mythread.cpp
 
 HEADERS += \
     droparea.h \
     wallsizer.h \
-    im.h
+    im.h \
+    mythread.h
 
 unix:!macx: LIBS += -lMagick++
 
@@ -24,7 +26,6 @@ RESOURCES += \
     resources.qrc
 
 OTHER_FILES += \
-    qml/Wallsizer/ToolBar.qml \
     qml/Wallsizer/MessageOverlay.qml \
     qml/Wallsizer/main.qml \
     qml/Wallsizer/IndicatorOverlay.qml \
@@ -45,5 +46,6 @@ OTHER_FILES += \
     qml/Wallsizer/GUI/Theme/MyUIComboBoxStyle.qml \
     qml/Wallsizer/GUI/Theme/MyUICheckBoxStyle.qml \
     qml/Wallsizer/GUI/Theme/MyUIButtonStyle.qml \
-    qml/Wallsizer/GUI/Theme/MyUIAlert.qml
+    qml/Wallsizer/GUI/Theme/MyUIAlert.qml \
+    qml/Wallsizer/MyToolBar.qml
 

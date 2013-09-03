@@ -2,7 +2,7 @@
 #define WALLSIZER_H
 
 #include "im.h"
-
+#include <QThread>
 #include <QList>
 #include <QObject>
 #include <QQuickItem>
@@ -67,11 +67,11 @@ private:
     bool enabled;
 };
 
-class Wallsizer : public QQuickItem
+class Wallsizer : public QObject
 {
     Q_OBJECT
 public:
-    explicit Wallsizer(QQuickItem *parent = 0);
+    explicit Wallsizer(QObject *parent = 0);
     Q_PROPERTY(bool saveIntoSameFolder READ getsaveSame WRITE setsaveSame NOTIFY saveSameChanged)
     Q_PROPERTY(bool alwaysAskWhereToSave READ getsaveAks WRITE setsaveAsk NOTIFY saveAksChanged)
     Q_PROPERTY(QString defaultSavePath READ getsavePath WRITE setsavePath NOTIFY savePathChanged)
@@ -133,5 +133,8 @@ private:
     IM imageMagic;
 
 };
+
+
+
 
 #endif // WALLSIZER_H

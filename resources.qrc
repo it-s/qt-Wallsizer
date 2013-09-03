@@ -8,7 +8,6 @@
         <file>qml/Wallsizer/IndicatorOverlay.qml</file>
         <file>qml/Wallsizer/main.qml</file>
         <file>qml/Wallsizer/MessageOverlay.qml</file>
-        <file>qml/Wallsizer/ToolBar.qml</file>
         <file>qml/Wallsizer/GUI/ConfigWindow.qml</file>
         <file>qml/Wallsizer/GUI/EditWindow.qml</file>
         <file>qml/Wallsizer/GUI/Theme/MyUIAlert.qml</file>
@@ -34,5 +33,6 @@
         <file>qml/Wallsizer/images/ajax-loader.gif</file>
         <file>qml/Wallsizer/images/diagonal-noise.png</file>
         <file>qml/Wallsizer/images/WallpaperResizerHelpBanner.png</file>
+        <file>qml/Wallsizer/MyToolBar.qml</file>
     </qresource>
 </RCC>

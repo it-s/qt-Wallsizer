@@ -1,24 +1,41 @@
 import QtQuick 2.1
 import QtQuick.Dialogs 1.0
 import QtQuick.Controls 1.0
+import com.Likalo.MyThread 1.0
+
 import "GUI/Theme/Fonts"
 import "GUI/Theme"
 import "GUI"
 
 ApplicationWindow {
+    id:app
     title: "Wallsizer"
     visible: true
     width: 360
     height: 360
     Fonts{}
     Variables{id:vars}
-    Component.onCompleted: showIntro();
+    Component.onCompleted:showIntro()
 
     function showIntro(){
         message.show(qsTr("Drag and drop images you wish to resize onto the window drop target"),999999)
         //message.show("images/WallpaperResizerHelpBanner.png",120000)
     }
 
+    function pause(){
+        indicator.show("PROCESS");
+    }
+    function resume(){
+        indicator.hide();
+    }
+    function showConfig(){
+        //        configWindow.saveIntoSameFolder = app.saveIntoSameFolder;
+        //        configWindow.defaultSavePath = app.defaultSavePath;
+        //        configWindow.alwaysAskWhereToSave = app.alwaysAskWhereToSave;
+        if(!configWindow.visible)
+            configWindow.show();
+        //        configWindow.focusListAt(0);
+    }
     Image {
         anchors.fill: parent
         fillMode: Image.Tile
@@ -37,12 +54,23 @@ ApplicationWindow {
     MessageOverlay{
         id: message
     }
-    ToolBar{
+    MyToolBar{
         id: toolbar
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: parent.bottom
+        onProcessClicked: myThread.start()
 
+    }
+
+    ConfigWindow{
+        id: configWindow
+    }
+
+    MyThread{
+        id:myThread
+        onStarted:  indicator.show("PROCESS");
+        onFinished: indicator.hide();
     }
 
 }

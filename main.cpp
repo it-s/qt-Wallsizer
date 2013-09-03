@@ -1,6 +1,6 @@
 #include "droparea.h"
 #include "wallsizer.h"
-
+#include "mythread.h"
 #include <QSize>
 #include <QtQuick/QQuickView>
 #include <QGuiApplication>
@@ -16,6 +16,7 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     qmlRegisterType<DropArea>("com.Likalo.Drops", 1, 0, "DropZone");
+    qmlRegisterType<MyThread>("com.Likalo.MyThread", 1, 0, "MyThread");
 
     QQmlApplicationEngine engine(QUrl("qrc:/qml/Wallsizer/main.qml"));
     return app.exec();

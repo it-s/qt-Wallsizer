@@ -4,11 +4,16 @@ import QtQuick.Controls 1.0
 import "GUI/Theme"
 
 Rectangle {
+    id:root
     height: vars.em(8)
     anchors.bottom: parent.pottom
     anchors.left: parent.left
     anchors.right: parent.right
     color: vars.bodyBackground
+
+    signal clearClicked()
+    signal settingsClicked()
+    signal processClicked()
 
     Rectangle {
         height: 4
@@ -36,7 +41,7 @@ Rectangle {
             iconName: "settings"
             width: vars.em(7)
             height: vars.em(6)
-            onClicked: app.showConfig()
+            onClicked: root.settingsClicked()
             style: MyUIButtonStyle {
             }
         }
@@ -45,8 +50,7 @@ Rectangle {
             text: qsTr("Clear")
             width: (parent.width - vars.em(7) - vars.paddingMini * 2) * 0.3
             height: vars.em(6)
-            //            enabled: dropTargetArea.count>0
-            onClicked: dropTargetArea.clear()
+            onClicked: root.clearClicked()
             style: MyUIButtonStyle {
             }
         }
@@ -54,24 +58,11 @@ Rectangle {
             text: qsTr("Process Images")
             width: (parent.width - vars.em(7) - vars.paddingMini * 2) * 0.7
             height: vars.em(6)
-            //            enabled: dropTargetArea.count>0
-            onClicked: {
-                if (dropTargetArea.count == 0) {
-                    message.show(qsTr("No images added to the drop target area. Add images first."))
-                    return
-                } else {
-                    app.pause()
-                    processInterval.start()
-                }
-            }
+            onClicked: root.processClicked()
             isDefault: true
             style: MyUIButtonStyle {
             }
-            Timer {
-                id: processInterval
-                interval: 1000
-                onTriggered: app.processImages()
-            }
+
         }
     }
 }

@@ -4,8 +4,8 @@
 #include <QUrl>
 #include <QDebug>
 
-Wallsizer::Wallsizer(QQuickItem *parent) :
-    QQuickItem(parent)
+Wallsizer::Wallsizer(QObject *parent) :
+    QObject(parent)
 {
     readSettings();
     tmpSavePath = "";
@@ -190,3 +190,6 @@ Resolution::Resolution(QObject *parent, QString _title, int _width, int _height,
     detailHigh = _detailHigh;
     enabled = _enabled;
 }
+
+
+
