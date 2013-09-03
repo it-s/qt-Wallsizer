@@ -12,19 +12,18 @@ DropArea::DropArea(QQuickItem *parent)
 
 void DropArea::dragEnterEvent(QDragEnterEvent *event)
 {
-    if(!this->isValidImages(event->mimeData())){
-        event->ignore();
-        emit entered(false,1);
-        return;
+    bool acceptable = true;
+    int reason = 0;
+    if(!isValidImages(event->mimeData())){
+        acceptable = false;
+        reason = 1;
     }
-    if(!this->isNotExceedingLimit(event->mimeData())){
-        event->ignore();
-        emit entered(false,2);
-        return;
+    if(!isNotExceedingLimit(event->mimeData())){
+        acceptable = false;
+        reason = 2;
     }
-
     event->acceptProposedAction();
-    emit entered(true);
+    emit entered(acceptable,reason);
 }
 //! [dragEnterEvent() function]
 
@@ -38,12 +37,14 @@ void DropArea::dragMoveEvent(QDragMoveEvent *event)
 //! [dropEvent() function part1]
 void DropArea::dropEvent(QDropEvent *event)
 {
+    if (isValidImages(event->mimeData()) && isNotExceedingLimit(event->mimeData())) {
     const QMimeData *mimeData = event->mimeData();
     QList<QUrl> urlList = mimeData->urls();
     this->urls.append(urlList);
     event->acceptProposedAction();
     emit dropped(this->stringifyUrls(urlList));
     emit urlsChanged();
+    }
 }
 
 bool DropArea::isValidImages(const QMimeData *mimeData)

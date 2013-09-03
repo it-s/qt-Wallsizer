@@ -4,8 +4,9 @@
 #include <QSize>
 #include <QtQuick/QQuickView>
 #include <QGuiApplication>
-#include "qtquick2applicationviewer.h"
-
+#include <QQuickView>
+#include <QApplication>
+#include <QQmlApplicationEngine>
 int main(int argc, char *argv[])
 {
 
@@ -14,17 +15,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setApplicationName("Wallsizer");
 
     QGuiApplication app(argc, argv);
+    qmlRegisterType<DropArea>("com.Likalo.Drops", 1, 0, "DropZone");
 
-    qmlRegisterType<DropArea>("Drops", 1, 0, "DropZone");
-    qmlRegisterType<Wallsizer>("Wallsizer", 1, 0, "Wallsizer");
-
-    QtQuick2ApplicationViewer viewer;
-//    viewer.setMainQmlFile(QStringLiteral("qml/Wallsizer/main.qml"));
-    viewer.setSource(QUrl("qrc:/qml/Wallsizer/main.qml"));
-    viewer.setMinimumSize(QSize(360,360));
-    viewer.setIcon(QIcon("qrc:/icons/Wallsizer64.png"));
-//    viewer.setMaximumSize(QSize(360,360));
-    viewer.showExpanded();
-
+    QQmlApplicationEngine engine(QUrl("qrc:/qml/Wallsizer/main.qml"));
     return app.exec();
+
 }
