@@ -60,6 +60,7 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         onProcessClicked: myThread.start()
+        onSettingsClicked: configWindow.show()
 
     }
 
