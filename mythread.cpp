@@ -11,20 +11,18 @@ MyThread::MyThread(QObject *parent) :
 
 void MyThread::run()
 {
-    //Get back resolution settings
 
+ mImageMagic.setResolutionsList(resolutions());
+ qDebug()<<"start processing with "<<resolutions().count() << " Resolution(s)";
 
- qDebug()<<resolutions().count();
+ foreach (QUrl url, mUrls)
+ {
+     qDebug()<<"process "<< url;
+     QUrl path = url;
 
-
-              double a = 50;
-    for (double i = 0; i< 100000000; ++i)
-    {
-        a =sqrt(i)*2;
-    }
-
+      mImageMagic.processImage(path.toLocalFile(),url.toLocalFile());
+ }
     qDebug()<<"END !!";
-
 }
 
 QStringList MyThread::scalingMethodsModel()

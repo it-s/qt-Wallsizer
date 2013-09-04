@@ -8,7 +8,7 @@
 
 #include <Magick++.h>
 #include <iostream>
-
+#include "resolutionmodel.h"
 using namespace std;
 using namespace Magick;
 
@@ -18,7 +18,7 @@ public:
     IM();
     bool processImage(QString _savePath, QString _imageURL);
     bool processImageTest(QString _savePath, QString _imageURL);
-    void setResolutionsList(QList<QMap<QString, int> > _resolutionsList){resolutionsList=_resolutionsList;}
+    void setResolutionsList(const QList<Resolution>& list){resolutionsList=list;}
 
     QStringList getScalingFilters(){return (QStringList)filters.keys();}
 
@@ -27,7 +27,7 @@ public:
 
 private:
     int error;
-    QList<QMap<QString, int> > resolutionsList;
+    QList<Resolution> resolutionsList;
 //    QStringList filterList;
     QMap<QString,MagickCore::FilterTypes> filters;
 

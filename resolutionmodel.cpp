@@ -142,7 +142,9 @@ void ResolutionModel::saveSettings()
 
 void ResolutionModel::readSettings()
 {
+    beginResetModel();
     mDatas.clear();
+
     QSettings settings;
     setSaveAsk(settings.value("saveAsk",false).toBool());
     setSaveSame(settings.value("saveSame",true).toBool());
@@ -194,8 +196,7 @@ void ResolutionModel::readSettings()
         }
     }
 
-    beginInsertRows(QModelIndex(),0, mDatas.count()-1);
-    endInsertRows();
+  endResetModel();
 
 }
 

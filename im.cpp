@@ -49,27 +49,29 @@ bool IM::processImage(QString _savePath, QString _imageURL)
     int imageRate = rateDetailLevel(image);
 
     for(int i=0; i<resolutionsList.count();++i){
-        QMap<QString, int> res = resolutionsList.at(i);
-        QFileInfo file = QFileInfo(finalSavePath,QString("%1_%2x%3.jpg").arg(baseFilename).arg(res.value("width")).arg(res.value("height")));
+//        QMap<QString, int> res = resolutionsList.at(i);
+        Resolution res = resolutionsList.at(i);
+
+        QFileInfo file = QFileInfo(finalSavePath,QString("%1_%2x%3.jpg").arg(baseFilename).arg(res.width).arg(res.height));
         qDebug() << "File name: "<<file.absoluteFilePath();
 
         int resizingAlgorithm = 0;
         switch (imageRate) {
         case 1:
-            resizingAlgorithm = res.value("detailLow");
+            resizingAlgorithm = res.detailLow;
             break;
         case 2:
-            resizingAlgorithm = res.value("detailMedium");
+            resizingAlgorithm = res.detailMed;
             break;
         case 3:
-            resizingAlgorithm = res.value("detailHigh");
+            resizingAlgorithm = res.detailHigh;
             break;
         default:
             break;
         }
 
-        Image resizedImage = createResizedVersion(image,res.value("width"),res.value("height"),getFilterAt(resizingAlgorithm));
-        saveAs(resizedImage,file.absoluteFilePath().toStdString(),res.value("compression"));
+        Image resizedImage = createResizedVersion(image,res.width,res.height,getFilterAt(resizingAlgorithm));
+        saveAs(resizedImage,file.absoluteFilePath().toStdString(),res.compression);
         if(!file.exists()){error = 4;return false;}
     }
     return true;
@@ -96,14 +98,14 @@ bool IM::processImageTest(QString _savePath, QString _imageURL)
     int imageRate = rateDetailLevel(image);
 
     for(int i=0; i<resolutionsList.count();++i){
-        QMap<QString, int> res = resolutionsList.at(i);
+        Resolution res = resolutionsList.at(i);
         for(int j=0; j<filters.count();++j){
 
-            QFileInfo file = QFileInfo(finalSavePath,QString("%1_%2x%3_%4-%5.jpg").arg(baseFilename).arg(res.value("width")).arg(res.value("height")).arg(imageRate).arg(getFilterNameAt(j)));
+            QFileInfo file = QFileInfo(finalSavePath,QString("%1_%2x%3_%4-%5.jpg").arg(baseFilename).arg(res.width).arg(res.height).arg(imageRate).arg(getFilterNameAt(j)));
             qDebug() << "File name: "<<file.absoluteFilePath();
 
-            Image resizedImage = createResizedVersion(image,res.value("width"),res.value("height"),getFilterAt(j));
-            saveAs(resizedImage,file.absoluteFilePath().toStdString(),res.value("compression"));
+            Image resizedImage = createResizedVersion(image,res.width,res.height,getFilterAt(j));
+            saveAs(resizedImage,file.absoluteFilePath().toStdString(),res.compression);
             if(!file.exists()){error = 4;return false;}
         }
 

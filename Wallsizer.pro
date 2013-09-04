@@ -5,14 +5,14 @@ QT += widgets quick
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     droparea.cpp \
-    wallsizer.cpp \
+#    wallsizer.cpp \
     im.cpp \
     mythread.cpp \
     resolutionmodel.cpp
 
 HEADERS += \
     droparea.h \
-    wallsizer.h \
+#    wallsizer.h \
     im.h \
     mythread.h \
     resolutionmodel.h
