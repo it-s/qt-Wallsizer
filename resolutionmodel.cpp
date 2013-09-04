@@ -142,10 +142,13 @@ void ResolutionModel::saveSettings()
 
 void ResolutionModel::readSettings()
 {
+    mDatas.clear();
     QSettings settings;
     setSaveAsk(settings.value("saveAsk",false).toBool());
     setSaveSame(settings.value("saveSame",true).toBool());
     setSavePath(settings.value("savePath","").toString());
+
+
 
     qDebug()<<"read save ask "<<saveAsk();
 
@@ -174,6 +177,7 @@ void ResolutionModel::readSettings()
         mDatas.append(Resolution("QWXGA",2048,1152,90,3,3,3,false));
         mDatas.append(Resolution("WQHD",2560,1440,90,3,3,3,false));
         mDatas.append(Resolution("WQXGA",2560,1600,90,3,3,3,false));
+        saveSettings();
     }
     else{
         for(int i=0;i<count;++i){

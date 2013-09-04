@@ -150,7 +150,7 @@ Window {
             }
             ComboBox {
                 id: editItemLowFilter
-                model: app.scalingMethodsModel
+                model: myThread.scalingMethodsModel()
                 width: vars.span6
                 style: MyUIComboBoxStyle{
 
@@ -165,7 +165,7 @@ Window {
             }
             ComboBox {
                 id: editItemMedFilter
-                model: app.scalingMethodsModel
+                model: myThread.scalingMethodsModel()
                 width: vars.span6
                 style: MyUIComboBoxStyle{
 
@@ -180,7 +180,7 @@ Window {
             }
             ComboBox {
                 id: editItemHigFilter
-                model: app.scalingMethodsModel
+                model: myThread.scalingMethodsModel()
                 width: vars.span6
                 style: MyUIComboBoxStyle{
 

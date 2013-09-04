@@ -3,7 +3,9 @@
 
 #include <QThread>
 #include <QStringList>
+#include <QStringListModel>
 #include "im.h"
+#include "resolutionmodel.h"
 class MyThread : public QThread
 {
     Q_OBJECT
@@ -12,11 +14,18 @@ public:
 
     virtual void run();
 
+    Q_INVOKABLE QStringList scalingMethodsModel();
+
+protected:
+    QList<Resolution> resolutions();
+
 public slots:
     void setUrls(const QStringList& urls);
 
 private:
     QStringList mUrls;
+    IM mImageMagic;
+
     
 };
 
