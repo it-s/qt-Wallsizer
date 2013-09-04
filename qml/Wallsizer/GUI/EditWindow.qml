@@ -15,7 +15,7 @@ Window {
     modality: Qt.ApplicationModal
 
     property variant resolution
-    property int itemRow: 0
+    property int itemRow: -1
     property alias itemTitle: editItemTitle.text
     property alias itemWidth: editItemWidth.text
     property alias itemHeight: editItemHeight.text
@@ -24,8 +24,9 @@ Window {
     property alias itemMediumFilter: editItemMedFilter.currentIndex
     property alias itemHighFilter: editItemHigFilter.currentIndex
     property alias itemEnabled: editItemEnabled.checked
+    property variant itemData
 
-    signal saveClicked()
+    signal saveClicked(variant data);
 
     ColumnLayout{
         id: mainLayout
@@ -206,20 +207,21 @@ Window {
 
                 }
 
-                onClicked:editWindow.saveClicked()
-//                    app.resolutionsModelSet(itemRow,{
-//                                                  title: editItemTitle.text,
-//                                                  width: editItemWidth.text*1,
-//                                                  height: editItemHeight.text*1,
-//                                                  compression: editItemCompressionLevel.value*1,
-//                                                  detailLow: editItemLowFilter.currentIndex,
-//                                                  detailMedium: editItemMedFilter.currentIndex,
-//                                                  detailHigh: editItemHigFilter.currentIndex,
-//                                                  enabled: editItemEnabled.checked
-//                                              });
-//                    editWindow.close();
-//                    configWindow.focusListAt(itemRow);
-//                }
+                onClicked: {
+                    var item = new Object;
+                    item.title = editItemTitle.text;
+                    item.width=editItemWidth.text*1;
+                    item.height=editItemHeight.text*1;
+                    item.compression=editItemCompressionLevel.value*1;
+                    item.detailLow= editItemLowFilter.currentIndex;
+                    item.detailMedium= editItemMedFilter.currentIndex;
+                    item.detailHigh= editItemHigFilter.currentIndex;
+                    item.enabled= editItemEnabled.checked;
+
+                    editWindow.saveClicked(item)
+                }
+
+
                 isDefault: true
             }
         }

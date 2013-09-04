@@ -3,7 +3,7 @@
 
 #include <QThread>
 #include <QStringList>
-
+#include "im.h"
 class MyThread : public QThread
 {
     Q_OBJECT

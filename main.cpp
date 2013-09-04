@@ -20,9 +20,12 @@ int main(int argc, char *argv[])
     qmlRegisterType<MyThread>("com.Likalo.MyThread", 1, 0, "MyThread");
 
 
-    QQmlApplicationEngine engine(QUrl("qrc:/qml/Wallsizer/main.qml"));
+    QQmlApplicationEngine engine;
     ResolutionModel resolutionModel;
+
     engine.rootContext()->setContextProperty("resolutionModel",&resolutionModel);
+    engine.load(QUrl("qrc:/qml/Wallsizer/main.qml"));
+
     return app.exec();
 
 }

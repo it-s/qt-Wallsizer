@@ -11,6 +11,15 @@ Window {
     minimumWidth: vars.span12+vars.span1
     minimumHeight: vars.column(20)
     color: vars.bodyBackground
+    onVisibleChanged: {
+        if (visible){
+            saveIntoSameFolder = resolutionModel.saveSame;
+            alwaysAskWhereToSave = resolutionModel.saveAsk;
+            defaultSavePath = resolutionModel.savePath;
+            resolutionModel.readSettings();
+    }
+
+        }
 
     title: qsTr("Wallsizer Settings")
     modality: Qt.ApplicationModal
@@ -25,6 +34,22 @@ Window {
     function focusListAt(index) {
         resolutionTable.positionViewAtRow(index, ListView.Center)
         resolutionTable.currentRow = index
+    }
+
+
+    function startEditor(row) {
+        var item = resolutionModel.resolution(row)
+        console.debug(item.title)
+        editWindow.itemRow = row
+        editWindow.itemTitle = item.title
+        editWindow.itemWidth = item.width
+        editWindow.itemHeight = item.height
+        editWindow.itemCompression = item.compression
+        editWindow.itemLowFilter = item.detailLow
+        editWindow.itemMediumFilter = item.detailMedium
+        editWindow.itemHighFilter = item.detailHigh
+        editWindow.itemEnabled = item.enabled
+        editWindow.show()
     }
 
     FileDialog {
@@ -155,19 +180,6 @@ Window {
                 }
             }
 
-            function startEditor(row) {
-                var item = app.resolutionsModelGet(row) //dummyModel.get(row);
-                editWindow.itemRow = row
-                editWindow.itemTitle = item.title
-                editWindow.itemWidth = item.width
-                editWindow.itemHeight = item.height
-                editWindow.itemCompression = item.compression
-                editWindow.itemLowFilter = item.detailLow
-                editWindow.itemMediumFilter = item.detailMedium
-                editWindow.itemHighFilter = item.detailHigh
-                editWindow.itemEnabled = item.enabled
-                editWindow.show()
-            }
 
             onActivated: startEditor(row)
             onDoubleClicked: startEditor(row)
@@ -185,10 +197,11 @@ Window {
                 activeFocusOnTab: true
                 //                    tooltip: qsTr("Add new resolution")
                 onClicked: {
-                    var row = resolutionTable.currentRow;
-                    editWindow.resolution = resolutionModel.resolution(row);
+                    editWindow.itemRow = -1;
                     editWindow.show();
                 }
+
+
             }
             Button {
                 style: MyUIButtonStyle {
@@ -197,8 +210,7 @@ Window {
                 activeFocusOnTab: true
                 //                    tooltip: qsTr("Remove selected resolution")
                 enabled: (resolutionTable.currentRow != -1)
-//                onClicked: app.resolutionsModelDelete(
-//                               resolutionTable.currentRow)
+                onClicked: resolutionModel.remove(resolutionTable.currentRow)
             }
             MyUISpacer{}
             Button {
@@ -206,8 +218,7 @@ Window {
                 }
                 iconName: "edit"
                 activeFocusOnTab: true
-                onClicked: resolutionTable.startEditor(
-                               resolutionTable.currentRow)
+                onClicked: startEditor(resolutionTable.currentRow)
             }
         }
         RowLayout {
@@ -218,10 +229,8 @@ Window {
                 }
 
                 text: "Cancel"
-                onClicked: {
-                    app.resolutionsModelReset()
-                    configWindow.close()
-                }
+                onClicked: configWindow.close()
+
             }
             Button {
                 id: settingsSave
@@ -231,10 +240,11 @@ Window {
 
                 text: qsTr("Save")
                 onClicked: {
-                    app.saveIntoSameFolder = settingsSaveintoSameFolderCheckbox.checked
-                    app.alwaysAskWhereToSave = settingsAlwaysAskWhereToSaveCheckbox.checked
-                    app.defaultSavePath = settingsDefaultSavePath.text
-                    app.save()
+                    resolutionModel.saveSame = settingsSaveintoSameFolderCheckbox.checked;
+                    resolutionModel.saveAsk  = settingsAlwaysAskWhereToSaveCheckbox.checked;
+                    resolutionModel.savePath = settingsDefaultSavePath.text
+
+                    resolutionModel.saveSettings();
                     configWindow.close()
                 }
                 isDefault: true
@@ -243,6 +253,14 @@ Window {
     }
     EditWindow {
         id: editWindow
+        onSaveClicked: {
+            console.debug(editWindow.itemRow);
+            resolutionModel.update(editWindow.itemRow,data);
+            resolutionTable.currentRow = 0;
+            editWindow.close();
+
+
+        }
 
     }
 }
