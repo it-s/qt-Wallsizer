@@ -35,9 +35,9 @@ class ResolutionModel : public QAbstractListModel
     Q_OBJECT
 
 public:
-    Q_PROPERTY(bool saveAsk READ saveAsk WRITE setSaveAsk NOTIFY saveAskChanged)
+//    Q_PROPERTY(bool saveAsk READ saveAsk WRITE setSaveAsk NOTIFY saveAskChanged)
     Q_PROPERTY(bool saveSame READ saveSame WRITE setSaveSame NOTIFY saveSameChanged)
-    Q_PROPERTY(QString savePath READ savePath WRITE setSavePath NOTIFY savePathChanged)
+//    Q_PROPERTY(QString savePath READ savePath WRITE setSavePath NOTIFY savePathChanged)
 
     enum ResolutionRole{
         TitleRole = Qt::UserRole+1,
@@ -60,25 +60,25 @@ public:
     Q_INVOKABLE void saveSettings();
     Q_INVOKABLE void readSettings();
 
-    bool saveAsk(){return mSaveAsk;}
+//    bool saveAsk(){return mSaveAsk;}
     bool saveSame(){return mSaveSame;}
-    QString savePath(){return mSavePath;}
+//    QString savePath(){return mSavePath;}
 
-    void setSaveAsk(bool enable) {mSaveAsk = enable; emit saveAskChanged();}
+//    void setSaveAsk(bool enable) {mSaveAsk = enable; emit saveAskChanged();}
     void setSaveSame(bool enable) {mSaveSame = enable;emit saveSameChanged();}
-    void setSavePath(const QString& path) {mSavePath = path;emit savePathChanged();}
+//    void setSavePath(const QString& path) {mSavePath = path;emit savePathChanged();}
 
 signals:
-    void saveAskChanged();
+//    void saveAskChanged();
     void saveSameChanged();
-    void savePathChanged();
+//    void savePathChanged();
 
 
 private:
     QList<Resolution> mDatas;
-    bool mSaveAsk;
+//    bool mSaveAsk;
     bool mSaveSame;
-    QString mSavePath;
+//    QString mSavePath;
 
 };
 

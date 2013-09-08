@@ -101,6 +101,7 @@ void DropArea::clear()
     QList<QUrl> urlList;
     this->urls = urlList;
     emit urlsChanged();
+    emit cleared();
 }
 
 void DropArea::removeUrl(int index)

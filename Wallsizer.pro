@@ -49,5 +49,7 @@ OTHER_FILES += \
     qml/Wallsizer/GUI/Theme/MyUICheckBoxStyle.qml \
     qml/Wallsizer/GUI/Theme/MyUIButtonStyle.qml \
     qml/Wallsizer/GUI/Theme/MyUIAlert.qml \
-    qml/Wallsizer/MyToolBar.qml
+    qml/Wallsizer/MyToolBar.qml \
+    qml/Wallsizer/GUI/Theme/Base/BaseText.qml \
+    qml/Wallsizer/GUI/Theme/Base/BaseElement.qml
 

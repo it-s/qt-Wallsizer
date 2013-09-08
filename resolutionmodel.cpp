@@ -117,11 +117,11 @@ void ResolutionModel::update(int row, const QVariantMap &item)
 void ResolutionModel::saveSettings()
 {
     QSettings settings;
-    settings.setValue("saveAsk",saveAsk());
+//    settings.setValue("saveAsk",saveAsk());
     settings.setValue("saveSame",saveSame());
-    settings.setValue("savePath",savePath());
+//    settings.setValue("savePath",savePath());
 
-    qDebug()<<"save save ask "<<saveAsk();
+//    qDebug()<<"save save ask "<<saveAsk();
 
     int _count = mDatas.count();
     settings.setValue("mDatas_count",_count);
@@ -146,13 +146,13 @@ void ResolutionModel::readSettings()
     mDatas.clear();
 
     QSettings settings;
-    setSaveAsk(settings.value("saveAsk",false).toBool());
+//    setSaveAsk(settings.value("saveAsk",false).toBool());
     setSaveSame(settings.value("saveSame",true).toBool());
-    setSavePath(settings.value("savePath","").toString());
+//    setSavePath(settings.value("savePath","").toString());
 
 
 
-    qDebug()<<"read save ask "<<saveAsk();
+//    qDebug()<<"read save ask "<<saveAsk();
 
     int count = settings.value("mDatas_count",0).toInt();
     if(!count){

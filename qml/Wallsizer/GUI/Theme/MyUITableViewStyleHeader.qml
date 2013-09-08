@@ -3,8 +3,6 @@ import QtQuick 2.0
 import "Base"
 
 Rectangle {
-    id: baserectangle1
-
     property int columns: 0
     property bool isFirst: styleData.column == 0
     property bool isLast: styleData.column == columns

@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QDebug>
+#include <qmath.h>
 
 IM::IM()
 {
@@ -11,19 +12,15 @@ IM::IM()
 
     //Scaling methods
 //    LanczosFilter
-//    CatromFilter
 //    BlackmanFilter
 //    MitchellFilter
 //    SincFilter
 //    BoxFilter
-//    PointFilter
     filters.insert("Lanczos Filter",MagickCore::LanczosFilter);
-//    filters.insert("Catrom Filter",MagickCore::CatromFilter);
     filters.insert("Blackman Filter",MagickCore::BlackmanFilter);
     filters.insert("Mitchell Filter",MagickCore::MitchellFilter);
     filters.insert("Sinc Filter",MagickCore::SincFilter);
     filters.insert("Box Filter",MagickCore::BoxFilter);
-//    filters.insert("Point Filter",MagickCore::PointFilter);
 
     error = 0;
 }
@@ -51,6 +48,7 @@ bool IM::processImage(QString _savePath, QString _imageURL)
     for(int i=0; i<resolutionsList.count();++i){
 //        QMap<QString, int> res = resolutionsList.at(i);
         Resolution res = resolutionsList.at(i);
+        if(res.width==0||res.height==0)continue; //Skip the resolution if it's incomplete
 
         QFileInfo file = QFileInfo(finalSavePath,QString("%1_%2x%3.jpg").arg(baseFilename).arg(res.width).arg(res.height));
         qDebug() << "File name: "<<file.absoluteFilePath();
@@ -77,41 +75,41 @@ bool IM::processImage(QString _savePath, QString _imageURL)
     return true;
 }
 
-bool IM::processImageTest(QString _savePath, QString _imageURL)
-{
-    QFileInfo __savePath = QFileInfo(_savePath);
-    QDir savePath = QFileInfo(_savePath).dir();
-    if(__savePath.isDir())savePath = QDir(_savePath);
-    qDebug() << savePath.absolutePath();
-    if(!savePath.exists()){error = 1;return false;}
-    QFileInfo imageURL = QFileInfo(_imageURL);
-    QString baseFilename = imageURL.baseName();
-    qDebug() << imageURL.fileName();
-    qDebug() << "Base Name: " << baseFilename;
-    if(!imageURL.exists()||!imageURL.isReadable()){error = 2;return false;}
-    if (!savePath.exists(baseFilename)){ if(!savePath.mkdir(baseFilename)){error = 3;return false;}};
-    QDir finalSavePath = QDir(savePath.absoluteFilePath(baseFilename));
-    qDebug() << finalSavePath.path();
-    //IM stuff starts here
-    Image image;
-    image.read(imageURL.absoluteFilePath().toStdString());
-    int imageRate = rateDetailLevel(image);
+//bool IM::processImageTest(QString _savePath, QString _imageURL)
+//{
+//    QFileInfo __savePath = QFileInfo(_savePath);
+//    QDir savePath = QFileInfo(_savePath).dir();
+//    if(__savePath.isDir())savePath = QDir(_savePath);
+//    qDebug() << savePath.absolutePath();
+//    if(!savePath.exists()){error = 1;return false;}
+//    QFileInfo imageURL = QFileInfo(_imageURL);
+//    QString baseFilename = imageURL.baseName();
+//    qDebug() << imageURL.fileName();
+//    qDebug() << "Base Name: " << baseFilename;
+//    if(!imageURL.exists()||!imageURL.isReadable()){error = 2;return false;}
+//    if (!savePath.exists(baseFilename)){ if(!savePath.mkdir(baseFilename)){error = 3;return false;}};
+//    QDir finalSavePath = QDir(savePath.absoluteFilePath(baseFilename));
+//    qDebug() << finalSavePath.path();
+//    //IM stuff starts here
+//    Image image;
+//    image.read(imageURL.absoluteFilePath().toStdString());
+//    int imageRate = rateDetailLevel(image);
 
-    for(int i=0; i<resolutionsList.count();++i){
-        Resolution res = resolutionsList.at(i);
-        for(int j=0; j<filters.count();++j){
+//    for(int i=0; i<resolutionsList.count();++i){
+//        Resolution res = resolutionsList.at(i);
+//        for(int j=0; j<filters.count();++j){
 
-            QFileInfo file = QFileInfo(finalSavePath,QString("%1_%2x%3_%4-%5.jpg").arg(baseFilename).arg(res.width).arg(res.height).arg(imageRate).arg(getFilterNameAt(j)));
-            qDebug() << "File name: "<<file.absoluteFilePath();
+//            QFileInfo file = QFileInfo(finalSavePath,QString("%1_%2x%3_%4-%5.jpg").arg(baseFilename).arg(res.width).arg(res.height).arg(imageRate).arg(getFilterNameAt(j)));
+//            qDebug() << "File name: "<<file.absoluteFilePath();
 
-            Image resizedImage = createResizedVersion(image,res.width,res.height,getFilterAt(j));
-            saveAs(resizedImage,file.absoluteFilePath().toStdString(),res.compression);
-            if(!file.exists()){error = 4;return false;}
-        }
+//            Image resizedImage = createResizedVersion(image,res.width,res.height,getFilterAt(j));
+//            saveAs(resizedImage,file.absoluteFilePath().toStdString(),res.compression);
+//            if(!file.exists()){error = 4;return false;}
+//        }
 
-    }
-    return true;
-}
+//    }
+//    return true;
+//}
 
 QString IM::getErrorDescription(QString item)
 {
@@ -173,14 +171,14 @@ Image IM::createResizedVersion(Image _image, int width, int height, MagickCore::
     double aspectH = (double)_image.rows()/(double)_image.columns();
 //    Geometry fgm = Geometry(width, height);
     Geometry sgm = Geometry(width, height);
-    if(width>height*aspectW)sgm = Geometry(width, width*aspectH);
-    if(height>width*aspectH)sgm = Geometry(height*aspectW, height);
+    if(width>height*aspectW)sgm = Geometry(width, qCeil(width*aspectH));
+    if(height>width*aspectH)sgm = Geometry(qCeil(height*aspectW), height);
 
     qDebug() << sgm.width() << "x"<<sgm.height();
     Image __image = _image;
     __image.filterType(filter);//MagickCore::HanningFilter);
     __image.zoom(sgm);
-    __image.crop(Geometry(width,height,(sgm.width()-width)/2,(sgm.height()-height)/2));
+    __image.crop(Geometry(width,height,qCeil((sgm.width()-width)/2),qCeil((sgm.height()-height)/2)));
 //    if(filter!=MagickCore::BoxFilter&&filter!=MagickCore::PointFilter&&filter!=MagickCore::SincFilter)__image.unsharpmask(0,0.5,1,0.05);//the two last filters are direct scaling filters sharpening those will look bad
     return __image;
 }

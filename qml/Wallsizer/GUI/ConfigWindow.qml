@@ -8,25 +8,24 @@ import "Theme"
 
 Window {
     id: configWindow
-    minimumWidth: vars.span12+vars.span1
+    minimumWidth: vars.span12 + vars.span1
     minimumHeight: vars.column(20)
     color: vars.bodyBackground
     onVisibleChanged: {
-        if (visible){
-            saveIntoSameFolder = resolutionModel.saveSame;
-            alwaysAskWhereToSave = resolutionModel.saveAsk;
-            defaultSavePath = resolutionModel.savePath;
-            resolutionModel.readSettings();
-    }
-
+        if (visible) {            
+            resolutionModel.readSettings()
+            settingsSaveintoSameFolderCheckbox.checked = resolutionModel.saveSame
+//            settingsAlwaysAskWhereToSaveCheckbox.checked = !resolutionModel.saveSame
+//            settingsDefaultSavePath.text = resolutionModel.savePath
         }
+    }
 
     title: qsTr("Wallsizer Settings")
     modality: Qt.ApplicationModal
 
-    property alias saveIntoSameFolder: settingsSaveintoSameFolderCheckbox.checked
-    property alias alwaysAskWhereToSave: settingsAlwaysAskWhereToSaveCheckbox.checked
-    property alias defaultSavePath: settingsDefaultSavePath.text
+//    property alias saveIntoSameFolder: settingsSaveintoSameFolderCheckbox.checked
+//    property alias alwaysAskWhereToSave: settingsAlwaysAskWhereToSaveCheckbox.checked
+//    property alias defaultSavePath: settingsDefaultSavePath.text
 
     function cleanPath(url) {
         return url.toString().replace("file:///", "")
@@ -35,7 +34,6 @@ Window {
         resolutionTable.positionViewAtRow(index, ListView.Center)
         resolutionTable.currentRow = index
     }
-
 
     function startEditor(row) {
         var item = resolutionModel.resolution(row)
@@ -52,12 +50,12 @@ Window {
         editWindow.show()
     }
 
-    FileDialog {
-        id: fileDialog
-        selectFolder: true
-        title: qsTr("Default Distanation Folder")
-        onAccepted: settingsDefaultSavePath.text = fileUrl
-    }
+//    FileDialog {
+//        id: fileDialog
+//        selectFolder: true
+//        title: qsTr("Default Distanation Folder")
+//        onAccepted: settingsDefaultSavePath.text = fileUrl
+//    }
 
     ColumnLayout {
         id: mainLayout
@@ -67,11 +65,6 @@ Window {
         MyUIHeading {
             Layout.fillWidth: true
             text: qsTr("Image Saving")
-        }
-        MyUIAlert {
-            Layout.fillWidth: true
-            text: qsTr("New subfolder will be created inside the destination folder")
-            iconName: "circle_exclamation_mark"
         }
 
         RowLayout {
@@ -88,45 +81,50 @@ Window {
                 }
             }
         }
-        RowLayout {
+        MyUIAlert {
             Layout.fillWidth: true
-            spacing: vars.em(1)
-            enabled: !settingsSaveintoSameFolderCheckbox.checked
-            MyUILabel {
-                text: qsTr("Always ask where to save the resulting images")
-                Layout.fillWidth: true
-            }
-            CheckBox {
-                id: settingsAlwaysAskWhereToSaveCheckbox
-                activeFocusOnTab: true
-                style: MyUICheckBoxStyle {
-                }
-            }
+            text: qsTr("New subfolder will be created inside the destination folder")
+            iconName: "circle_exclamation_mark"
         }
-        RowLayout {
-            Layout.fillWidth: true
-            enabled: !settingsSaveintoSameFolderCheckbox.checked
-                     && !settingsAlwaysAskWhereToSaveCheckbox.checked
-            TextField {
-                id: settingsDefaultSavePath
-                placeholderText: qsTr("Default save path")
-                Layout.fillWidth: true
-                readOnly: true
-                style: MyUITextFieldStyle {
-                }
-            }
-            Button {
-                id: settingsDefaultSavePathButton
-                text: qsTr("Browse")
-                iconName: "folder_open"
-                activeFocusOnTab: true
-                onClicked: fileDialog.open()
-                style: MyUIButtonStyle {
-                }
-            }
-        }
-        MyUISpacer {
-        }
+//        RowLayout {
+//            Layout.fillWidth: true
+//            spacing: vars.em(1)
+////            enabled: !settingsSaveintoSameFolderCheckbox.checked
+//            MyUILabel {
+//                text: qsTr("Always ask where to save the resulting images")
+//                Layout.fillWidth: true
+//            }
+//            CheckBox {
+//                id: settingsAlwaysAskWhereToSaveCheckbox
+//                activeFocusOnTab: true
+//                style: MyUICheckBoxStyle {
+//                }
+//            }
+//        }
+//        RowLayout {
+//            Layout.fillWidth: true
+//            enabled: !settingsSaveintoSameFolderCheckbox.checked
+//                     && !settingsAlwaysAskWhereToSaveCheckbox.checked
+//            TextField {
+//                id: settingsDefaultSavePath
+//                placeholderText: qsTr("Default save path")
+//                Layout.fillWidth: true
+//                readOnly: true
+//                style: MyUITextFieldStyle {
+//                }
+//            }
+//            Button {
+//                id: settingsDefaultSavePathButton
+//                text: qsTr("Browse")
+//                iconName: "folder_open"
+//                activeFocusOnTab: true
+//                onClicked: fileDialog.open()
+//                style: MyUIButtonStyle {
+//                }
+//            }
+//        }
+//        MyUISpacer {
+//        }
         MyUIHeading {
             Layout.fillWidth: true
             text: qsTr("Image Scaling")
@@ -144,10 +142,8 @@ Window {
             activeFocusOnTab: true
             model: resolutionModel
             headerDelegate: MyUITableViewStyleHeader {
-                //                columns: parent.columnCount
             }
             rowDelegate: MyUITableViewStyleRow {
-                //                rows: parent.rowCount
             }
             itemDelegate: MyUITableViewStyleItem {
             }
@@ -180,12 +176,13 @@ Window {
                 }
             }
 
-
             onActivated: startEditor(row)
             onDoubleClicked: startEditor(row)
         }
+
         MyUISpacer {
         }
+
         RowLayout {
             anchors.top: resolutionTable.bottom
             anchors.margins: 5
@@ -195,29 +192,29 @@ Window {
                 }
                 iconName: "circle_plus"
                 activeFocusOnTab: true
-                //                    tooltip: qsTr("Add new resolution")
+                tooltip: qsTr("Add new resolution")
                 onClicked: {
-                    editWindow.itemRow = -1;
-                    editWindow.show();
+                    editWindow.itemRow = -1
+                    editWindow.show()
                 }
-
-
             }
             Button {
                 style: MyUIButtonStyle {
                 }
                 iconName: "circle_remove"
                 activeFocusOnTab: true
-                //                    tooltip: qsTr("Remove selected resolution")
+                tooltip: qsTr("Remove selected resolution")
                 enabled: (resolutionTable.currentRow != -1)
                 onClicked: resolutionModel.remove(resolutionTable.currentRow)
             }
-            MyUISpacer{}
+            MyUISpacer {
+            }
             Button {
                 style: MyUIButtonStyle {
                 }
                 iconName: "edit"
                 activeFocusOnTab: true
+                enabled: (resolutionTable.currentRow != -1)
                 onClicked: startEditor(resolutionTable.currentRow)
             }
         }
@@ -230,7 +227,6 @@ Window {
 
                 text: "Cancel"
                 onClicked: configWindow.close()
-
             }
             Button {
                 id: settingsSave
@@ -240,11 +236,11 @@ Window {
 
                 text: qsTr("Save")
                 onClicked: {
-                    resolutionModel.saveSame = settingsSaveintoSameFolderCheckbox.checked;
-                    resolutionModel.saveAsk  = settingsAlwaysAskWhereToSaveCheckbox.checked;
-                    resolutionModel.savePath = settingsDefaultSavePath.text
+                    resolutionModel.saveSame = settingsSaveintoSameFolderCheckbox.checked
+//                    resolutionModel.saveAsk = settingsAlwaysAskWhereToSaveCheckbox.checked
+//                    resolutionModel.savePath = settingsDefaultSavePath.text
 
-                    resolutionModel.saveSettings();
+                    resolutionModel.saveSettings()
                     configWindow.close()
                 }
                 isDefault: true
@@ -254,13 +250,15 @@ Window {
     EditWindow {
         id: editWindow
         onSaveClicked: {
-            console.debug(editWindow.itemRow);
-            resolutionModel.update(editWindow.itemRow,data);
-            resolutionTable.currentRow = 0;
-            editWindow.close();
-
-
+            console.debug(editWindow.itemRow)
+            resolutionModel.update(editWindow.itemRow, data)
+            if (editWindow.itemRow == -1) {
+                resolutionTable.currentRow = 0
+                resolutionTable.positionViewAtRow(0, ListView.Beginning)
+            } else
+                resolutionTable.positionViewAtRow(editWindow.itemRow,
+                                                  ListView.Center)
+            editWindow.close()
         }
-
     }
 }

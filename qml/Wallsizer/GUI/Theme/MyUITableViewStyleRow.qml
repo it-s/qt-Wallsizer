@@ -1,8 +1,6 @@
 import QtQuick 2.0
 
 Rectangle {
-    id: baserectangle1
-
     property int rows: 0
     property bool isFirst: styleData.row == 0
     property bool isLast: styleData.row == rows

@@ -22,15 +22,8 @@ Rectangle {
     function show(message,duration){
         if(duration!==undefined)timeout = duration;
         else timeout = 5000;
-        if(message.indexOf(".png")>0){
-            messageImage.source = message;
-            messageImage.visible = true;
-            messageText.visible = false;
-        }else{
-            text = message;
-            messageImage.visible = false;
-            messageText.visible = true;
-        }
+        text = message;
+        messageText.visible = true;
         state = "SHOW";
         messageTimer.running = true;
     }
@@ -50,12 +43,6 @@ Rectangle {
         repeat: false
         interval: 5000
         onTriggered: messageBody.hide()
-    }
-    Image {
-        id: messageImage
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
-        visible: false
     }
 
     BaseText {

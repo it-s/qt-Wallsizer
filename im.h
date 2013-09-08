@@ -17,7 +17,7 @@ class IM
 public:
     IM();
     bool processImage(QString _savePath, QString _imageURL);
-    bool processImageTest(QString _savePath, QString _imageURL);
+//    bool processImageTest(QString _savePath, QString _imageURL);
     void setResolutionsList(const QList<Resolution>& list){resolutionsList=list;}
 
     QStringList getScalingFilters(){return (QStringList)filters.keys();}

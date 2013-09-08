@@ -2,6 +2,7 @@
 #include <cmath>
 #include <QDebug>
 #include <QSettings>
+#include <QFileDialog>
 #include "resolutionmodel.h"
 MyThread::MyThread(QObject *parent) :
     QThread(parent)
@@ -15,13 +16,15 @@ void MyThread::run()
  mImageMagic.setResolutionsList(resolutions());
  qDebug()<<"start processing with "<<resolutions().count() << " Resolution(s)";
 
- foreach (QUrl url, mUrls)
- {
-     qDebug()<<"process "<< url;
-     QUrl path = url;
+ // QString dir = QFileDialog::getExistingDirectory(m, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
-      mImageMagic.processImage(path.toLocalFile(),url.toLocalFile());
- }
+// foreach (QUrl url, mUrls)
+// {
+//     qDebug()<<"process "<< url;
+//     QUrl path = url;
+
+//      mImageMagic.processImage(path.toLocalFile(),url.toLocalFile());
+// }
     qDebug()<<"END !!";
 }
 

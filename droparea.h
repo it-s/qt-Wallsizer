@@ -23,6 +23,7 @@ signals:
     void dropped(const QStringList urlsDropped);
     void entered(const bool acceptable = false, const int reason = 0);
     void left();
+    void cleared();
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event);

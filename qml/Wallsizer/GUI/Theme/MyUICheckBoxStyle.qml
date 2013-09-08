@@ -23,6 +23,7 @@ CheckBoxStyle {
             anchors.left: parent.left
             color: vars.blank
             font.pixelSize: vars.fontSizeMedium
+            opacity: control.enabled ? 1 : 0.5
         }
         MyUIcon {
             icon: "remove"
@@ -31,6 +32,7 @@ CheckBoxStyle {
             anchors.right: parent.right
             color: vars.blank
             font.pixelSize: vars.fontSizeMedium
+            opacity: control.enabled ? 1 : 0.5
         }
 
         Behavior on color {
