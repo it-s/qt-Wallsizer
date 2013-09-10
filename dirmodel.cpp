@@ -16,7 +16,13 @@ int DirModel::rowCount(const QModelIndex &parent) const
 
 QVariant DirModel::data(const QModelIndex &index, int role) const
 {
-    if (role == Qt::DisplayRole)
+    if (role == Qt::DisplayRole){
+
+        QString path = mFolders.at(index.row());
+        if (path.count() > 30)
+            return path.left(path.count()-3) + "...";
+
+    }
         return mFolders.at(index.row());
 
     return QVariant();

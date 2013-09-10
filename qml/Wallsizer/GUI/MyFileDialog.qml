@@ -5,7 +5,7 @@ import QtQuick.Window 2.1
 import "Theme"
 Window {
     id:root
-    width: 400
+    width: 500
     height: 600
     signal clicked(string path)
 
