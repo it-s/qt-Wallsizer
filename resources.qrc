@@ -34,5 +34,6 @@
         <file>qml/Wallsizer/images/diagonal-noise.png</file>
         <file>qml/Wallsizer/images/WallpaperResizerHelpBanner.png</file>
         <file>qml/Wallsizer/MyToolBar.qml</file>
+        <file>qml/Wallsizer/GUI/MyFileDialog.qml</file>
     </qresource>
 </RCC>

@@ -1,6 +1,7 @@
 #include "droparea.h"
 #include "mythread.h"
 #include "resolutionmodel.h"
+#include "dirmodel.h"
 #include <QSize>
 #include <QtQuick/QQuickView>
 #include <QGuiApplication>
@@ -22,8 +23,11 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
     ResolutionModel resolutionModel;
+    DirModel dirModel;
 
     engine.rootContext()->setContextProperty("resolutionModel",&resolutionModel);
+    engine.rootContext()->setContextProperty("dirModel",&dirModel);
+
     engine.load(QUrl("qrc:/qml/Wallsizer/main.qml"));
 
     return app.exec();

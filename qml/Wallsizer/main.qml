@@ -16,6 +16,7 @@ ApplicationWindow {
     width: 420
     height: 400
 
+
     function showIntro() {
         message.show(qsTr("Drag and drop images you wish to resize onto the window drop target"),
                      999999)
@@ -61,6 +62,17 @@ ApplicationWindow {
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: parent.bottom
+        onClearClicked: dropTargetArea.clear()
+        onProcessClicked: {
+            fileDialog.show();
+//            if(dropTargetArea.count>0){
+//                myThread.setUrls(dropTargetArea.urls)
+//                myThread.start()
+//            }else message.show(qsTr("No images to process.\nPlease add some images first."))
+
+        }
+
+
     }
 
     ConfigWindow {
@@ -70,12 +82,19 @@ ApplicationWindow {
     MyThread {
         id: myThread
         onStarted: {
-            app.enabled = false
+            //            app.enabled = false
             indicator.show("PROCESS")
         }
         onFinished: {
-            app.enabled = true
+            //            app.enabled = true
             indicator.hide()
         }
     }
+
+
+
+    MyFileDialog {
+        id:fileDialog
+    }
+
 }

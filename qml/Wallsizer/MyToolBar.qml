@@ -50,7 +50,9 @@ Rectangle {
             width: (parent.width - vars.em(7) - vars.paddingMini * 2) * 0.3
             height: vars.em(6)
             enabled: dropTargetArea.count>0
-            onClicked: dropTargetArea.clear()
+            onClicked: root.clearClicked();
+
+
             style: MyUIButtonStyle {
             }
         }
@@ -58,13 +60,10 @@ Rectangle {
             text: qsTr("Process Images")
             width: (parent.width - vars.em(7) - vars.paddingMini * 2) * 0.7
             height: vars.em(6)
-            enabled: dropTargetArea.count>0
-            onClicked: {
-                if(dropTargetArea.count>0){
-                myThread.setUrls(dropTargetArea.urls)
-                myThread.start()
-                }else message.show(qsTr("No images to process.\nPlease add some images first."))
-            }
+//            enabled: dropTargetArea.count>0
+            onClicked: root.processClicked()
+
+
             isDefault: true
             style: MyUIButtonStyle {
             }

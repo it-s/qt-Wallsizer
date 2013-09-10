@@ -12,7 +12,7 @@ Window {
     minimumHeight: vars.column(20)
     color: vars.bodyBackground
     onVisibleChanged: {
-        if (visible) {            
+        if (visible) {
             resolutionModel.readSettings()
             settingsSaveintoSameFolderCheckbox.checked = resolutionModel.saveSame
 //            settingsAlwaysAskWhereToSaveCheckbox.checked = !resolutionModel.saveSame
@@ -50,12 +50,6 @@ Window {
         editWindow.show()
     }
 
-//    FileDialog {
-//        id: fileDialog
-//        selectFolder: true
-//        title: qsTr("Default Distanation Folder")
-//        onAccepted: settingsDefaultSavePath.text = fileUrl
-//    }
 
     ColumnLayout {
         id: mainLayout

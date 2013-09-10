@@ -8,14 +8,16 @@ SOURCES += main.cpp \
 #    wallsizer.cpp \
     im.cpp \
     mythread.cpp \
-    resolutionmodel.cpp
+    resolutionmodel.cpp \
+    dirmodel.cpp
 
 HEADERS += \
     droparea.h \
 #    wallsizer.h \
     im.h \
     mythread.h \
-    resolutionmodel.h
+    resolutionmodel.h \
+    dirmodel.h
 
 unix:!macx: LIBS += -lMagick++
 
@@ -51,5 +53,6 @@ OTHER_FILES += \
     qml/Wallsizer/GUI/Theme/MyUIAlert.qml \
     qml/Wallsizer/MyToolBar.qml \
     qml/Wallsizer/GUI/Theme/Base/BaseText.qml \
-    qml/Wallsizer/GUI/Theme/Base/BaseElement.qml
+    qml/Wallsizer/GUI/Theme/Base/BaseElement.qml \
+    qml/Wallsizer/GUI/MyFileDialog.qml
 
