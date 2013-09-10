@@ -21,10 +21,12 @@ protected:
 
 public slots:
     void setUrls(const QStringList& urls);
+    void setDestination(const QString& path);
 
 private:
     QStringList mUrls;
     IM mImageMagic;
+    QString mDestination;
 
     
 };

@@ -15,6 +15,7 @@ void MyThread::run()
 
  mImageMagic.setResolutionsList(resolutions());
  qDebug()<<"start processing with "<<resolutions().count() << " Resolution(s)";
+ qDebug()<<"Destination "<< mDestination;
 
  // QString dir = QFileDialog::getExistingDirectory(m, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
@@ -64,4 +65,9 @@ void MyThread::setUrls(const QStringList &urls)
 {
     qDebug()<<"urls"<<urls;
     mUrls = urls;
+}
+
+void MyThread::setDestination(const QString &path)
+{
+    mDestination = path;
 }

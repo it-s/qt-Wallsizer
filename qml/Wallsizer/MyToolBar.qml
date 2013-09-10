@@ -60,7 +60,7 @@ Rectangle {
             text: qsTr("Process Images")
             width: (parent.width - vars.em(7) - vars.paddingMini * 2) * 0.7
             height: vars.em(6)
-//            enabled: dropTargetArea.count>0
+            enabled: dropTargetArea.count>0
             onClicked: root.processClicked()
 
 

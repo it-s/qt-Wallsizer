@@ -7,32 +7,55 @@ Window {
     id:root
     width: 400
     height: 600
+    signal clicked(string path)
 
-    TableView{
-        id: folderTable
-        backgroundVisible: false
-        frameVisible: false
-        activeFocusOnTab: true
-        model: dirModel
+    ColumnLayout {
         anchors.fill: parent
-        onDoubleClicked: {
-            dirModel.setRootPath(dirModel.path(row))
+        TableView{
+            id: folderTable
+            backgroundVisible: false
+            frameVisible: false
+            activeFocusOnTab: true
+            model: dirModel
+
+            onDoubleClicked: {
+                dirModel.setRootPath(dirModel.path(row))
+            }
+
+            headerDelegate: MyUITableViewStyleHeader {
+            }
+            rowDelegate: MyUITableViewStyleRow {
+            }
+            itemDelegate: MyUITableViewStyleItem {
+            }
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            TableViewColumn {
+                role: "display"
+                title: "name"
+
+
+            }
         }
 
-        headerDelegate: MyUITableViewStyleHeader {
+
+        RowLayout {
+            Layout.fillWidth: true
+            Button {
+                text: qsTr("Select")
+                Layout.fillWidth: true
+                style: MyUIButtonStyle {
+                }
+
+                onClicked:  {
+                    root.close();
+                    root.clicked(dirModel.path(folderTable.currentRow))
+                }
+
+            }
+
         }
-        rowDelegate: MyUITableViewStyleRow {
-        }
-        itemDelegate: MyUITableViewStyleItem {
-        }
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        TableViewColumn {
-            role: "display"
-            title: "name"
 
 
-        }
     }
-
 }

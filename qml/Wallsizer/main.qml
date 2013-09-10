@@ -63,14 +63,9 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         onClearClicked: dropTargetArea.clear()
-        onProcessClicked: {
-            fileDialog.show();
-//            if(dropTargetArea.count>0){
-//                myThread.setUrls(dropTargetArea.urls)
-//                myThread.start()
-//            }else message.show(qsTr("No images to process.\nPlease add some images first."))
+        onProcessClicked:  fileDialog.show();
 
-        }
+
 
 
     }
@@ -82,11 +77,9 @@ ApplicationWindow {
     MyThread {
         id: myThread
         onStarted: {
-            //            app.enabled = false
             indicator.show("PROCESS")
         }
         onFinished: {
-            //            app.enabled = true
             indicator.hide()
         }
     }
@@ -95,6 +88,14 @@ ApplicationWindow {
 
     MyFileDialog {
         id:fileDialog
+        onClicked:
+            if(dropTargetArea.count>0){
+                myThread.setDestination(path)
+                myThread.setUrls(dropTargetArea.urls)
+                myThread.start()
+            }
+            else message.show(qsTr("No images to process.\nPlease add some images first."))
+
     }
 
 }
