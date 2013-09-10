@@ -10,5 +10,6 @@ Item {
         verticalAlignment: Text.AlignVCenter
         anchors.margins: vars.em(1)
         color: styleData.selected?vars.blank:vars.textColor
+        elide: Text.ElideRight
     }
 }

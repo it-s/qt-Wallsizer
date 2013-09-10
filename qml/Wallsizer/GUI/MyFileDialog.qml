@@ -33,6 +33,7 @@ Window {
             TableViewColumn {
                 role: "display"
                 title: "name"
+                elideMode: Text.ElideRight
 
 
             }
