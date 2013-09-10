@@ -16,7 +16,7 @@ public slots:
     void setRootPath(const QString& path);
 
 private:
-    QStringList mFolders;
+    QList<QFileInfo> mFolders;
     QDir mDir;
     
 };

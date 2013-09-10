@@ -17,7 +17,7 @@ int DirModel::rowCount(const QModelIndex &parent) const
 QVariant DirModel::data(const QModelIndex &index, int role) const
 {
     if (role == Qt::DisplayRole)
-        return mFolders.at(index.row());
+        return mFolders.at(index.row()).fileName();
 
     return QVariant();
 
@@ -26,7 +26,7 @@ QVariant DirModel::data(const QModelIndex &index, int role) const
  QString DirModel::path(int row)
 {
     if (row < mFolders.count())
-        return mFolders.at(row);
+        return mFolders.at(row).absoluteFilePath();
     return QString();
 }
 
@@ -36,7 +36,7 @@ void DirModel::setRootPath(const QString &path)
 
     beginResetModel();
     mDir.setCurrent(path);
-    mFolders = mDir.entryList(QDir::AllDirs);
+    mFolders = mDir.entryInfoList(QDir::AllDirs);
     endResetModel();
 
 
