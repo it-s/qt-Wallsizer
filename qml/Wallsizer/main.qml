@@ -64,10 +64,6 @@ ApplicationWindow {
         anchors.bottom: parent.bottom
         onClearClicked: dropTargetArea.clear()
         onProcessClicked:  fileDialog.show();
-
-
-
-
     }
 
     ConfigWindow {

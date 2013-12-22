@@ -5,8 +5,12 @@ import QtQuick.Window 2.1
 import "Theme"
 Window {
     id:root
-    width: 500
-    height: 600
+    minimumWidth: vars.span12+vars.span1
+    minimumHeight: vars.column(12)
+    color: vars.bodyBackground
+
+    title: qsTr("Select Save Directory")
+    modality: Qt.ApplicationModal
     signal clicked(string path)
 
     ColumnLayout {
@@ -32,7 +36,7 @@ Window {
             Layout.fillHeight: true
             TableViewColumn {
                 role: "display"
-                title: "name"
+                title: "Directories"
                 elideMode: Text.ElideRight
 
 

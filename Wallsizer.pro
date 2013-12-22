@@ -19,7 +19,7 @@ HEADERS += \
     resolutionmodel.h \
     dirmodel.h
 
-unix:!macx: LIBS += -lMagick++
+#unix:!macx: LIBS += -lMagick++
 
 #INCLUDEPATH += /usr/include/GraphicsMagick/
 CONFIG += link_pkgconfig
