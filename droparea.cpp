@@ -8,6 +8,7 @@ DropArea::DropArea(QQuickItem *parent)
     : QQuickItem(parent)
 {
     setFlag(QQuickItem::ItemAcceptsDrops,true);
+    this->mStatus = -1;
 }
 
 void DropArea::dragEnterEvent(QDragEnterEvent *event)
@@ -23,7 +24,9 @@ void DropArea::dragEnterEvent(QDragEnterEvent *event)
         reason = 2;
     }
     event->acceptProposedAction();
+    this->mStatus = reason;
     emit entered(acceptable,reason);
+    emit stateChanged();
 }
 //! [dragEnterEvent() function]
 
@@ -45,6 +48,8 @@ void DropArea::dropEvent(QDropEvent *event)
     emit dropped(this->stringifyUrls(urlList));
     emit urlsChanged();
     }
+    this->mStatus = -1;
+    emit this->stateChanged();
 }
 
 bool DropArea::isValidImages(const QMimeData *mimeData)
@@ -87,6 +92,8 @@ QStringList DropArea::stringifyUrls(QList<QUrl> _urls)
 void DropArea::dragLeaveEvent(QDragLeaveEvent *event)
 {
     event->accept();
+    this->mStatus = -1;
+    emit stateChanged();
     emit left();
 }
 //! [dragLeaveEvent() function]
@@ -94,6 +101,11 @@ void DropArea::dragLeaveEvent(QDragLeaveEvent *event)
 int DropArea::getCount()
 {
     return this->urls.length();
+}
+
+int DropArea::getState()
+{
+    return this->mStatus;
 }
 
 void DropArea::clear()

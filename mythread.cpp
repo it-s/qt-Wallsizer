@@ -19,13 +19,12 @@ void MyThread::run()
 
  // QString dir = QFileDialog::getExistingDirectory(m, tr("Open Directory"), "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
-// foreach (QUrl url, mUrls)
-// {
-//     qDebug()<<"process "<< url;
+ foreach (QUrl url, mUrls)
+ {
+     qDebug()<<"process "<< url;
 //     QUrl path = url;
-
-//      mImageMagic.processImage(path.toLocalFile(),url.toLocalFile());
-// }
+      mImageMagic.processImage(mDestination,url.toLocalFile());
+ }
     qDebug()<<"END !!";
 }
 

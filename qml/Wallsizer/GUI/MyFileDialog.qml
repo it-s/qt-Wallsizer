@@ -1,17 +1,28 @@
-import QtQuick 2.1
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
-import QtQuick.Window 2.1
+import QtQuick 2.2
+import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.1
+import QtQuick.Window 2.0
 import "Theme"
 Window {
-    id:root
+    id: fileDialog
     minimumWidth: vars.span12+vars.span1
-    minimumHeight: vars.column(12)
+    minimumHeight: vars.column(20)
     color: vars.bodyBackground
 
     title: qsTr("Select Save Directory")
     modality: Qt.ApplicationModal
-    signal clicked(string path)
+
+    signal accepted(string path)
+    signal rejected()
+//    signal clicked(string path)
+
+    function open(){
+        fileDialog.show();
+    }
+
+    Component.onDestruction: {
+        fileDialog.rejected();
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -47,14 +58,15 @@ Window {
         RowLayout {
             Layout.fillWidth: true
             Button {
-                text: qsTr("Select")
+                enabled: (folderTable.currentRow>-1)
+                text: qsTr("Select Save Directory")
                 Layout.fillWidth: true
                 style: MyUIButtonStyle {
                 }
 
                 onClicked:  {
-                    root.close();
-                    root.clicked(dirModel.path(folderTable.currentRow))
+                    fileDialog.accepted(dirModel.path(folderTable.currentRow));
+                    fileDialog.close();
                 }
 
             }

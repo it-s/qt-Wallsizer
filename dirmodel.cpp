@@ -25,7 +25,7 @@ QVariant DirModel::data(const QModelIndex &index, int role) const
 
  QString DirModel::path(int row)
 {
-    if (row < mFolders.count())
+    if (row!=-1&&row < mFolders.count())
         return mFolders.at(row).absoluteFilePath();
     return QString();
 }
@@ -38,6 +38,5 @@ void DirModel::setRootPath(const QString &path)
     mDir.setCurrent(path);
     mFolders = mDir.entryInfoList(QDir::AllDirs);
     endResetModel();
-
 
 }

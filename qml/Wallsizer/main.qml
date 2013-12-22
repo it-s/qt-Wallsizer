@@ -1,6 +1,6 @@
-import QtQuick 2.1
-import QtQuick.Dialogs 1.0
-import QtQuick.Controls 1.0
+import QtQuick 2.2
+import QtQuick.Dialogs 1.1
+import QtQuick.Controls 1.1
 import com.Likalo.MyThread 1.0
 
 import "GUI/Theme/Fonts"
@@ -59,11 +59,12 @@ ApplicationWindow {
 
     MyToolBar {
         id: toolbar
+        color: "#eef1f2"
         anchors.right: parent.right
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         onClearClicked: dropTargetArea.clear()
-        onProcessClicked:  fileDialog.show();
+        onProcessClicked:  fileDialog.open();
     }
 
     ConfigWindow {
@@ -80,18 +81,38 @@ ApplicationWindow {
         }
     }
 
-
+//    FileDialog{
+//        id:fileDialog
+//        title: "Please choose a save path"
+//        selectFolder: true
+//        selectExisting: true
+//        onAccepted:{
+//            console.log("Save path accepted "+url);
+////            if(dropTargetArea.count>0){
+////                myThread.setDestination(path)
+////                myThread.setUrls(dropTargetArea.urls)
+////                myThread.start()
+////        }
+//        }
+//        onRejected: {
+//            console.log("Save path rejected")
+//        }
+//    }
 
     MyFileDialog {
         id:fileDialog
-        onClicked:
+        onAccepted:{
+            console.log("Save path accepted "+path);
             if(dropTargetArea.count>0){
                 myThread.setDestination(path)
                 myThread.setUrls(dropTargetArea.urls)
                 myThread.start()
             }
             else message.show(qsTr("No images to process.\nPlease add some images first."))
-
+        }
+        onRejected: {
+            console.log("Save path rejected")
+        }
     }
 
 }

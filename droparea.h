@@ -12,6 +12,7 @@ class DropArea : public QQuickItem
     Q_OBJECT
     Q_PROPERTY(QStringList urls READ getUrls NOTIFY urlsChanged)
     Q_PROPERTY(int count READ getCount NOTIFY urlsChanged)
+    Q_PROPERTY(int state READ getState NOTIFY stateChanged)
 
 public:
     explicit DropArea(QQuickItem *parent = 0);
@@ -20,6 +21,7 @@ public:
 
 signals:
     void urlsChanged();
+    void stateChanged();
     void dropped(const QStringList urlsDropped);
     void entered(const bool acceptable = false, const int reason = 0);
     void left();
@@ -35,9 +37,11 @@ protected:
     QStringList getUrls();
     QStringList stringifyUrls(QList<QUrl> _urls);
     int getCount();
+    int getState();
 
 private:
     static const int imageMaxLimit = 12;
+    int mStatus;
     QList<QUrl> urls;
 
 };

@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2.2
 import com.Likalo.Drops 1.0
 
 DropZone {
@@ -9,10 +9,10 @@ DropZone {
     onEntered: {
         if (message.isShown())
             message.hide()
-        if (acceptable)
-            indicator.show("ACCEPT")
-        else
-            indicator.show("REJECT")
+//        if (acceptable)
+//            indicator.show("ACCEPT")
+//        else
+//            indicator.show("REJECT")
         if (reason == 1)
             message.show(qsTr("Selection contains non image items.\nOnly JPEG and PNG images are accepted."))
         if (reason == 2)
@@ -20,10 +20,10 @@ DropZone {
     }
     onLeft: {
         console.debug("left")
-        indicator.hide()
+//        indicator.hide()
     }
     onDropped: {
-        indicator.hide()
+//        indicator.hide()
     }
 
     Grid {

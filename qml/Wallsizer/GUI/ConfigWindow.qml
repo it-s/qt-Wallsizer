@@ -1,8 +1,7 @@
-import QtQuick 2.1
-import QtQuick.Controls 1.0
-import QtQuick.Layouts 1.0
-import QtQuick.Dialogs 1.0
-import QtQuick.Window 2.1
+import QtQuick 2.2
+import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.1
+import QtQuick.Window 2.0
 
 import "Theme"
 
@@ -56,30 +55,30 @@ Window {
         spacing: vars.em(1)
         anchors.margins: vars.column(1)
         anchors.fill: parent
-        MyUIHeading {
-            Layout.fillWidth: true
-            text: qsTr("Image Saving")
-        }
+//        MyUIHeading {
+//            Layout.fillWidth: true
+//            text: qsTr("Image Saving")
+//        }
 
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: vars.em(1)
-            MyUILabel {
-                text: qsTr("Save resulting images into the same folder as source")
-                Layout.fillWidth: true
-            }
-            CheckBox {
-                id: settingsSaveintoSameFolderCheckbox
-                activeFocusOnTab: true
-                style: MyUICheckBoxStyle {
-                }
-            }
-        }
-        MyUIAlert {
-            Layout.fillWidth: true
-            text: qsTr("New subfolder will be created inside the destination folder")
-            iconName: "circle_exclamation_mark"
-        }
+//        RowLayout {
+//            Layout.fillWidth: true
+//            spacing: vars.em(1)
+//            MyUILabel {
+//                text: qsTr("Save resulting images into the same folder as source")
+//                Layout.fillWidth: true
+//            }
+//            CheckBox {
+//                id: settingsSaveintoSameFolderCheckbox
+//                activeFocusOnTab: true
+//                style: MyUICheckBoxStyle {
+//                }
+//            }
+//        }
+//        MyUIAlert {
+//            Layout.fillWidth: true
+//            text: qsTr("New subfolder will be created inside the destination folder")
+//            iconName: "circle_exclamation_mark"
+//        }
 //        RowLayout {
 //            Layout.fillWidth: true
 //            spacing: vars.em(1)
@@ -147,7 +146,7 @@ Window {
             TableViewColumn {
                 role: "title"
                 title: "Title"
-                width: mainLayout.width - (74 * 2 + 60)
+                width: mainLayout.width - (74 * 2 + 70)
             }
             TableViewColumn {
                 role: "width"
@@ -230,7 +229,7 @@ Window {
 
                 text: qsTr("Save")
                 onClicked: {
-                    resolutionModel.saveSame = settingsSaveintoSameFolderCheckbox.checked
+//                    resolutionModel.saveSame = settingsSaveintoSameFolderCheckbox.checked
 //                    resolutionModel.saveAsk = settingsAlwaysAskWhereToSaveCheckbox.checked
 //                    resolutionModel.savePath = settingsDefaultSavePath.text
 

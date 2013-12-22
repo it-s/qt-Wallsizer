@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2.2
 
 import "GUI/Theme/Base"
 
@@ -20,9 +20,8 @@ Rectangle {
     }
 
     function show(message,duration){
-        if(duration!==undefined)timeout = duration;
-        else timeout = 5000;
-        text = message;
+        timeout = duration || 5000;
+        text = message || "";
         messageText.visible = true;
         state = "SHOW";
         messageTimer.running = true;

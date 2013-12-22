@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2.2
 
 import "GUI/Theme"
 
@@ -21,14 +21,14 @@ Rectangle {
         return state==type;
     }
 
-    Timer{
-        id: messageTimer
-        running: false
-        triggeredOnStart: false
-        repeat: false
-        interval: 5000
-        onTriggered: indicatorOverlayBase.hide()
-    }
+//    Timer{
+//        id: messageTimer
+//        running: false
+//        triggeredOnStart: false
+//        repeat: false
+//        interval: 5000
+//        onTriggered: indicatorOverlayBase.hide()
+//    }
 
     MyUIcon{
         id: icon
@@ -41,6 +41,7 @@ Rectangle {
     states: [
         State {
             name: "ACCEPT"
+            when: dropTargetArea.state==0
 
             PropertyChanges {
                 target: indicatorOverlayBase
@@ -58,6 +59,7 @@ Rectangle {
         },
         State {
             name: "REJECT"
+            when: dropTargetArea.state>0
 
             PropertyChanges {
                 target: indicatorOverlayBase
@@ -78,14 +80,15 @@ Rectangle {
                 style: Text.Sunken
             }
 
-            PropertyChanges {
-                target: messageTimer
-                running: true
-            }
+//            PropertyChanges {
+//                target: messageTimer
+//                running: true
+//            }
         },
         State {
             name: "DROPZONE"
-            when: parent.count==0
+            when: parent.count==0&&
+                  dropTargetArea.state<0
 
             PropertyChanges {
                 target: indicatorOverlayBase
